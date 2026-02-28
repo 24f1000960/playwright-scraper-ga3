@@ -1,0 +1,28 @@
+name: Scrape Table Sums
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install chromium --with-deps
+
+      - name: 24f1000960@ds.study.iitm.ac.in - Run Playwright scraper
+        run: node scrape.js
